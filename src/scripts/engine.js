@@ -11,8 +11,8 @@ const state = {
         type: document.getElementById("card-type"),
     },
     fieldCards: {
-        document: document.getElementById("player-field-card"),
-        document: document.getElementById("computer-field-card"),
+        player: document.getElementById("player-field-card"),
+        computer: document.getElementById("computer-field-card"),
     },
     actions: {
         buttom: document.getElementById("next-duel"),
@@ -70,7 +70,7 @@ async function createCardImage(IdCard, fieldSide) {
 
 
     if (fieldSide === playerSides.player1) {
-        
+
         cardImage.addEventListener("mouseover", () => {
             drawSelectCard(IdCard)
         })
@@ -81,6 +81,23 @@ async function createCardImage(IdCard, fieldSide) {
     }
 
     return cardImage;
+}
+
+async function drawSelectCard(cardId) {
+    await removeAllCardsImages();
+
+    let computerCardId = await getRandomCardId();
+
+    state.fieldCards.player.style.display = "block";
+    state.fieldCards.computer.style.display = "block";
+
+    state.fieldCards.player.src = cardData[cardId].img;
+    state.fieldCards.computer.src = cardData[computerCardId].img;
+
+    let duelResults = await checkDuelResults(cardId, computerCardId);
+
+    await updateScore();
+    await drawButton(duelResults);
 }
 
 async function drawSelectCard(index) {
