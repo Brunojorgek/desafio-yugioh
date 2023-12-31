@@ -21,7 +21,7 @@ const state = {
         computer: document.getElementById("computer-field-card"),
     },
     actions: {
-        buttom: document.getElementById("next-duel"),
+        button: document.getElementById("next-duel"),
     }
 }
 
@@ -99,8 +99,35 @@ async function setCardsField(cardId) {
 
     let duelResults = await checkDuelResults(cardId, computerCardId);
 
-    // await updateScore();
-    // await drawButton(duelResults);
+    await updateScore();
+    await drawButton(duelResults);
+}
+
+async function drawButton(text) {
+    state.actions.button.innerText = text;
+    state.actions.button.style.display = "block";
+}
+
+async function updateScore() {
+    state.score.scoreBox.innerText = `Win: ${state.score.playerScore}
+    | Lose: ${state.score.computerScore}`;
+}
+
+async function checkDuelResults(playerCardId, computerCardId) {
+    let duelResults = "Empate";
+    let playerCard = cardData[playerCardId];
+
+    if (playerCard.WinOf.includes(computerCardId)) {
+        duelResults = "Ganhou";
+        state.score.playerScore++;
+    }
+
+    if (playerCard.LoseOf.includes(computerCardId)) {
+        duelResults = "Perdeu";
+        state.score.computerScore++;
+    }
+
+    return duelResults;
 }
 
 async function removeAllCardsImages() {
