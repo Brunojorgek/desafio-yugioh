@@ -45,7 +45,6 @@ a:hover {
 }
 
 .container__left {
-    border: 1px solid red;
     width: 35%;
     min-width: 300px;
     display: flex;
@@ -60,8 +59,10 @@ a:hover {
 }
 
 .score_box {
+    width: 100%;
     background-color: #fff;
     padding: 30px;
+
 }
 
 .frame {
@@ -97,7 +98,6 @@ a:hover {
 }
 
 .card-versus__container {
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -156,6 +156,3 @@ a:hover {
     transform: scale(1.2);
 }
 
-.debug {
-    border: 1px solid red;
-}
